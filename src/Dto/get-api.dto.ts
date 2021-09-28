@@ -1,4 +1,4 @@
 export class GetApiDto {
     readonly title: string
-    readonly created_at: number
+    readonly created_at: string
 }
