@@ -1,8 +1,11 @@
-import { Controller, Get, Post } from '@nestjs/common';
-import { retry } from 'rxjs';
+import { Body, Controller, ForbiddenException, Get, Post, UseFilters } from '@nestjs/common';
+import { Observable, retry } from 'rxjs';
 import { AppService } from './app.service';
 import { GetApiDto } from './Dto/get-api.dto';
 import { HttpService } from '@nestjs/axios';
+//import { HttpExceptionFilter } from './http-exeption.filter';
+import { AxiosResponse } from 'axios';
+
 
 @Controller('qiita/items')
 export class AppController {
@@ -12,7 +15,7 @@ export class AppController {
     ) {}
 
   @Get()
-  findAll(): Observable<AxiosResponse<Cat[]>> {
+  findAll(): Observable<AxiosResponse> {
     return this.httpService.get('https://qiita.com/api/v2/items');
   }
   
@@ -21,5 +24,10 @@ export class AppController {
   //  return this.appService.getArticle();
   //}
 
+  //@Post()
+  //@UseFilters(new HttpExceptionFilter()) //@UseFilters(HttpExceptionFilter)でも良い
+  //async create(@Body() GetApiDto: GetApiDto) {
+  //  throw new ForbiddenException();
+  //}
 
 }
