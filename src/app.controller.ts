@@ -15,6 +15,12 @@ export class AppController {
     private readonly httpService: HttpService
     ) {}
 
+
+  @Get()
+  async pathError() {
+    throw new NotFoundException();      //パスが間違ってたときの例外をthrowする
+  }
+
   @Get()
   findAll(): Observable<AxiosResponse> {
     throw new HttpException({　         //標準の例外をthrowする
@@ -31,11 +37,6 @@ export class AppController {
       error: 'リクエストエラー',
       }, HttpStatus.FORBIDDEN);
   } */
-
-  @Get()
-  async pathError() {
-    throw new NotFoundException();      //パスが間違ってたときの例外をthrowする
-  }
 
   /* @Get()
   async pathError() {
