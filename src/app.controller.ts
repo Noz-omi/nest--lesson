@@ -1,10 +1,11 @@
-import { Body, Controller, ForbiddenException, Get, Post, UseFilters } from '@nestjs/common';
+import { Body, Controller, ForbiddenException, Get, HttpException, HttpStatus, Post, UseFilters } from '@nestjs/common';
 import { Observable, retry } from 'rxjs';
 import { AppService } from './app.service';
 import { GetApiDto } from './Dto/get-api.dto';
 import { HttpService } from '@nestjs/axios';
-//import { HttpExceptionFilter } from './http-exeption.filter';
+import { HttpExceptionFilter } from './http-exeption.filter';
 import { AxiosResponse } from 'axios';
+import { NotFoundException } from './notfound.exeption';
 
 
 @Controller('qiita/items')
@@ -16,18 +17,39 @@ export class AppController {
 
   @Get()
   findAll(): Observable<AxiosResponse> {
+    throw new HttpException({　         //標準の例外をthrowする
+      status: HttpStatus.FORBIDDEN,
+      message: 'リクエストエラー',
+      }, HttpStatus.FORBIDDEN);
     return this.httpService.get('https://qiita.com/api/v2/items');
   }
+
+  /* @Get()
+  async standardError() {
+    throw new HttpException({　         //標準の例外をthrowする
+      status: HttpStatus.FORBIDDEN,
+      error: 'リクエストエラー',
+      }, HttpStatus.FORBIDDEN);
+  } */
+
+  @Get()
+  async pathError() {
+    throw new NotFoundException();      //パスが間違ってたときの例外をthrowする
+  }
+
+  /* @Get()
+  async pathError() {
+    throw new NotFoundException(
+      {
+        status: HttpStatus.NOT_FOUND,
+        error: `リクエストエラー`,
+      }
+    );      //パスが間違ってたときの例外をthrowする
+  } */
   
   //@Get()
   //getArticle(@Query() getApi: GetApiDto) {
   //  return this.appService.getArticle();
-  //}
-
-  //@Post()
-  //@UseFilters(new HttpExceptionFilter()) //@UseFilters(HttpExceptionFilter)でも良い
-  //async create(@Body() GetApiDto: GetApiDto) {
-  //  throw new ForbiddenException();
   //}
 
 }
