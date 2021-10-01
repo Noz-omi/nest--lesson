@@ -1,4 +1,4 @@
-import { Body, Controller, ForbiddenException, Get, HttpException, HttpStatus, Post, UseFilters } from '@nestjs/common';
+import { Body, Controller, ForbiddenException, Get, HttpException, HttpStatus, Post, Query, UseFilters } from '@nestjs/common';
 import { Observable, retry } from 'rxjs';
 import { AppService } from './app.service';
 import { GetApiDto } from './Dto/get-api.dto';
@@ -6,9 +6,10 @@ import { HttpService } from '@nestjs/axios';
 import { HttpExceptionFilter } from './http-exeption.filter';
 import { AxiosResponse } from 'axios';
 import { NotFoundException } from './notfound.exeption';
+import { count } from 'console';
 
 
-@Controller('qiita/items')
+@Controller('qiita')
 export class AppController {
   constructor(
     private readonly appService: AppService,
@@ -16,41 +17,22 @@ export class AppController {
     ) {}
 
 
-  @Get()
-  async pathError() {
-    throw new NotFoundException();      //パスが間違ってたときの例外をthrowする
+  @UseFilters (new HttpExceptionFilter())
+  @Get('items')
+  findAll(@Query('count') count: number) {
+
+    if (!count) { 
+      count = 1
+    }
+
+    if (count　>　10 || count < 0 ) { 
+      throw new HttpException(
+        {status: HttpStatus.BAD_REQUEST},
+        HttpStatus.BAD_REQUEST);
+    }
+
+    return this.appService.findAll(count);
+
   }
-
-  @Get()
-  findAll(): Observable<AxiosResponse> {
-    throw new HttpException({　         //標準の例外をthrowする
-      status: HttpStatus.FORBIDDEN,
-      message: 'リクエストエラー',
-      }, HttpStatus.FORBIDDEN);
-    return this.httpService.get('https://qiita.com/api/v2/items');
-  }
-
-  /* @Get()
-  async standardError() {
-    throw new HttpException({　         //標準の例外をthrowする
-      status: HttpStatus.FORBIDDEN,
-      error: 'リクエストエラー',
-      }, HttpStatus.FORBIDDEN);
-  } */
-
-  /* @Get()
-  async pathError() {
-    throw new NotFoundException(
-      {
-        status: HttpStatus.NOT_FOUND,
-        error: `リクエストエラー`,
-      }
-    );      //パスが間違ってたときの例外をthrowする
-  } */
-  
-  //@Get()
-  //getArticle(@Query() getApi: GetApiDto) {
-  //  return this.appService.getArticle();
-  //}
 
 }
