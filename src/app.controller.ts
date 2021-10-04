@@ -7,6 +7,7 @@ import { HttpExceptionFilter } from './http-exeption.filter';
 import { AxiosResponse } from 'axios';
 import { NotFoundException } from './notfound.exeption';
 import { count } from 'console';
+import e from 'express';
 
 
 @Controller('qiita')
@@ -30,9 +31,14 @@ export class AppController {
         {status: HttpStatus.BAD_REQUEST},
         HttpStatus.BAD_REQUEST);
     }
+    const e = new Error('リクエストエラー');
+    console.log(e.message)
+  
 
     return this.appService.findAll(count);
 
-  }
+
+
+}
 
 }
