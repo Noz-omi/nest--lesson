@@ -28,7 +28,8 @@ import { strictEqual } from 'assert';
       } else  {
         HttpStatus.INTERNAL_SERVER_ERROR
       } */
- 
+      const isInstanceofHttpException = exception instanceof HttpException;
+
       let message : string
 
       if ( exception instanceof NotFoundException ) {

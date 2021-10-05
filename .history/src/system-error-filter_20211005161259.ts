@@ -28,13 +28,14 @@ import { strictEqual } from 'assert';
       } else  {
         HttpStatus.INTERNAL_SERVER_ERROR
       } */
- 
+      const isInstanceofHttpException = exception instanceof HttpException;
+
       let message : string
 
-      if ( exception instanceof NotFoundException ) {
-        message = 'リクエストエラー'
-      } else if ( exception instanceof HttpException ) {
+      if ( exception instanceof HttpException ) {
         message = exception.message
+      } else if ( exception instanceof NotFoundException ) {
+        message = 'リクエストエラー'
       } else {
         message = 'システムエラー'
       }

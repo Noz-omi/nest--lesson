@@ -6,8 +6,6 @@ import {
     HttpStatus,
     NotFoundException,
   } from '@nestjs/common';
-import { AnyFilesInterceptor } from '@nestjs/platform-express';
-import { strictEqual } from 'assert';
   
   import { Response, Request } from 'express';
   
@@ -28,16 +26,18 @@ import { strictEqual } from 'assert';
       } else  {
         HttpStatus.INTERNAL_SERVER_ERROR
       } */
- 
-      let message : string
 
-      if ( exception instanceof NotFoundException ) {
-        message = 'リクエストエラー'
-      } else if ( exception instanceof HttpException ) {
-        message = exception.message
+      const message = exception instanceof HttpException
+
+      if ( message ) {
+        exception.message
+      /* } else if ( exception instanceof NotFoundException ) {
+        return 'リクエストエラー' */
       } else {
-        message = 'システムエラー'
+        return 'システムエラー'
       }
+
+      console.log()
   
       response.json({
         path: request.url,

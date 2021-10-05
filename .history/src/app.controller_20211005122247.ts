@@ -33,6 +33,13 @@ export class AppController {
       throw ex
     }
 
+    throw new NotFoundException(
+      {
+        status: HttpStatus.NOT_FOUND,
+        error: `リクエストエラー`,
+      }
+    );
+
     return this.appService.findAll(count);
 
 
