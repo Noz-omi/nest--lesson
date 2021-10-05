@@ -8,6 +8,7 @@ import { count } from 'console';
 import { SystemErrorFilter } from './system-error-filter';
 
 
+@UseFilters (new SystemErrorFilter())
 @Controller('qiita')
 export class AppController {
   constructor(

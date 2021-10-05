@@ -11,7 +11,7 @@ export class AppService {
   constructor(private readonly httpService: HttpService) {}
 
   　findAll(count) {
-    const result: Observable<AxiosResponse> = this.httpService.get('https://qiita.com/api/v2/items');
+    const result: Observable<AxiosResponse> = this.httpService.get('aa');
       return result.pipe(map((response) => {
         return response.data　//Qiitaの情報の中から結果だけ取る
       }))
