@@ -2,7 +2,6 @@ import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
 import { map, Observable } from 'rxjs';
-import { GetApiDto } from './Dto/get-api.dto';
 
 @Injectable()
 export class AppService {
@@ -24,7 +23,7 @@ export class AppService {
 
         const responses = []
         for (let i = 0; i < count; i++) {　
-          const element: GetApiDto = {　
+          const element = {　
             title: data[i].title,
             created_at: data[i].created_at
           }
@@ -32,7 +31,7 @@ export class AppService {
         }
 
         return { results: responses}
-
+        
       }))
     }
 } 

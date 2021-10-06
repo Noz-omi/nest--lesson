@@ -3,6 +3,7 @@ import {
     Catch,
     ExceptionFilter,
     HttpException,
+    HttpStatus,
     NotFoundException,
   } from '@nestjs/common';
   

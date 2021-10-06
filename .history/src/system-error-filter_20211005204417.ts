@@ -3,6 +3,7 @@ import {
     Catch,
     ExceptionFilter,
     HttpException,
+    HttpStatus,
     NotFoundException,
   } from '@nestjs/common';
   
@@ -19,6 +20,12 @@ import {
       const context = host.switchToHttp();
       const response = context.getResponse<Response>();
       const request = context.getResponse<Request>();
+  
+      /* if ( exception instanceof HttpException) {
+        exception.getStatus()
+      } else  {
+        HttpStatus.INTERNAL_SERVER_ERROR
+      } */
  
       let message : string
 
