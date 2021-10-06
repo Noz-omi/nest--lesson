@@ -5,7 +5,7 @@ import { map, Observable } from 'rxjs';
 import { GetApiDto } from './Dto/get-api.dto';
 
 @Injectable()
-export class AppService {
+export class QiitaService {
   constructor(private readonly httpService: HttpService) {}
 
 　findAll(count) {
@@ -31,7 +31,7 @@ export class AppService {
         responses.push(element)　
       }
 
-      return { results: responses}
+      return { results: responses }
 
     }))
   }

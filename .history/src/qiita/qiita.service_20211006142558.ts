@@ -2,10 +2,10 @@ import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
 import { map, Observable } from 'rxjs';
-import { GetApiDto } from './Dto/get-api.dto';
+import { GetApiDto } from './qiita/Dto/get-api.dto';
 
 @Injectable()
-export class AppService {
+export class QiitaService {
   constructor(private readonly httpService: HttpService) {}
 
 　findAll(count) {
@@ -31,7 +31,7 @@ export class AppService {
         responses.push(element)　
       }
 
-      return { results: responses}
+      return { results: responses }
 
     }))
   }

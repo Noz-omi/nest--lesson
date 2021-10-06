@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { QiitaController } from './qiita.controller';
+import { QiitaService } from './qiita.service';
 import { HttpModule } from '@nestjs/axios';
 import { QiitaModule } from './qiita/qiita.module';
 @Module({
   imports: [HttpModule, QiitaModule],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [QiitaController],
+  providers: [QiitaService],
 })
 export class AppModule {}
