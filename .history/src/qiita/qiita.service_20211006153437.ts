@@ -12,18 +12,19 @@ export class QiitaService {
   const result: Observable<AxiosResponse> = this.httpService.get('https://qiita.com/api/v2/items');
     return result.pipe(map((response) => response.data))
     
-    .pipe(map((choicedData) => {
+    .pipe(map((data) => {
 
-      choicedData.sort((a,b) => {
-          return b.created_at < a.created_at;
+      data.sort(
+        function(a,b) {
+          return b - a;
         }
       )
 
       const responses = []
       for (let i = 0; i < count; i++) {　
         const element: GetApiDto = {　
-          title: choicedData[i].title,
-          created_at: choicedData[i].created_at
+          title: data[i].title,
+          created_at: data[i].created_at
         }
         responses.push(element)　
       }

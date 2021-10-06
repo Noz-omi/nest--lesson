@@ -14,8 +14,9 @@ export class QiitaService {
     
     .pipe(map((choicedData) => {
 
-      choicedData.sort((a,b) => {
-          return b.created_at < a.created_at;
+      choicedData.sort(
+        function(a,b) {
+          return b - a;
         }
       )
 

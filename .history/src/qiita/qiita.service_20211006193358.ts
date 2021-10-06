@@ -19,6 +19,8 @@ export class QiitaService {
         }
       )
 
+      console.log(choicedData.created_at)
+
       const responses = []
       for (let i = 0; i < count; i++) {　
         const element: GetApiDto = {　
