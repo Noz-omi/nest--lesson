@@ -5,18 +5,16 @@ import { map, Observable } from 'rxjs';
 import { GetApiDto } from './Dto/get-api.dto';
 
 @Injectable()
-export class AppService {
+export class QiitaService {
   constructor(private readonly httpService: HttpService) {}
 
 　findAll(count) {
   const result: Observable<AxiosResponse> = this.httpService.get('https://qiita.com/api/v2/items');
-    return result.pipe(map((response) => {
-      return response.data
-    }))
+    return result.pipe(map((response) => response.data))
     
-    .pipe(map((data) => {
+    .pipe(map((choicedData) => {
 
-      data.sort(
+      choicedData.sort(
         function(a,b) {
           return b - a;
         }
@@ -25,13 +23,13 @@ export class AppService {
       const responses = []
       for (let i = 0; i < count; i++) {　
         const element: GetApiDto = {　
-          title: data[i].title,
-          created_at: data[i].created_at
+          title: choicedData[i].title,
+          created_at: choicedData[i].created_at
         }
         responses.push(element)　
       }
 
-      return { results: responses}
+      return { results: responses }
 
     }))
   }

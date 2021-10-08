@@ -7,5 +7,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalFilters(new SystemErrorFilter());
   await app.listen(3000);
+
+  throw new NotFoundException(); 
 }
 bootstrap();

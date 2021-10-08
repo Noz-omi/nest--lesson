@@ -1,10 +1,17 @@
-import { Controller, Get, HttpException, HttpStatus, Query } from '@nestjs/common';
-import { AppService } from './app.service';
+import { 
+  Controller,
+  Get,
+  HttpException,
+  HttpStatus,
+  Query 
+} from '@nestjs/common';
+import { QiitaService } from './qiita.service';
 
 @Controller('qiita')
-export class AppController {
+export class QiitaController {
+  qiitaService: any;
   constructor(
-    private readonly appService: AppService,
+    private readonly appService: QiitaService,
     ) {}
 
   @Get('items')
@@ -25,7 +32,7 @@ export class AppController {
       throw ex
     }
 
-    return this.appService.findAll(count);
+    return this.qiitaService.findAll(count);
   }
 
 }

@@ -1,10 +1,10 @@
 import { Controller, Get, HttpException, HttpStatus, Query } from '@nestjs/common';
-import { AppService } from './app.service';
+import { QiitaService } from './qiita.service';
 
 @Controller('qiita')
 export class AppController {
   constructor(
-    private readonly appService: AppService,
+    private readonly appService: QiitaService,
     ) {}
 
   @Get('items')

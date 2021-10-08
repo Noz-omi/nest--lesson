@@ -1,10 +1,18 @@
-import { Controller, Get, HttpException, HttpStatus, Query } from '@nestjs/common';
+import { Body, Controller, ForbiddenException, Get, HttpException, HttpStatus, Post, Query, UseFilters } from '@nestjs/common';
+import { Observable, retry } from 'rxjs';
 import { AppService } from './app.service';
+import { HttpService } from '@nestjs/axios';
+import { HttpExceptionFilter } from './http-exeption.filter';
+import { AxiosResponse } from 'axios';
+import { count } from 'console';
+import { SystemErrorFilter } from './system-error-filter';
+
 
 @Controller('qiita')
 export class AppController {
   constructor(
     private readonly appService: AppService,
+    private readonly httpService: HttpService
     ) {}
 
   @Get('items')
@@ -26,6 +34,9 @@ export class AppController {
     }
 
     return this.appService.findAll(count);
-  }
+
+
+
+}
 
 }

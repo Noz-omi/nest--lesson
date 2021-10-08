@@ -1,4 +1,3 @@
-import { NotFoundException } from '@nestjs/common/exceptions';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { SystemErrorFilter } from './system-error-filter';
