@@ -9,8 +9,7 @@ import { QiitaService } from './qiita.service';
 
 @Controller('qiita')
 export class QiitaController {
-  qiitaService: any;
-  constructor(private readonly appService: QiitaService) {}
+  constructor(private readonly qiitaService: QiitaService) {}
 
   @Get('items')
   findAll(@Query('count') count: number) {
