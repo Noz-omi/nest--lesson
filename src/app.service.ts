@@ -8,31 +8,34 @@ import { GetApiDto } from './Dto/get-api.dto';
 export class AppService {
   constructor(private readonly httpService: HttpService) {}
 
-　findAll(count) {
-  const result: Observable<AxiosResponse> = this.httpService.get('https://qiita.com/api/v2/items');
-    return result.pipe(map((response) => {
-      return response.data
-    }))
-    
-    .pipe(map((data) => {
-
-      data.sort(
-        function(a,b) {
-          return b - a;
-        }
+  findAll(count) {
+    const result: Observable<AxiosResponse> = this.httpService.get(
+      'https://qiita.com/api/v2/items',
+    );
+    return result
+      .pipe(
+        map((response) => {
+          return response.data;
+        }),
       )
 
-      const responses = []
-      for (let i = 0; i < count; i++) {　
-        const element: GetApiDto = {　
-          title: data[i].title,
-          created_at: data[i].created_at
-        }
-        responses.push(element)　
-      }
+      .pipe(
+        map((data) => {
+          data.sort(function (a, b) {
+            return b - a;
+          });
 
-      return { results: responses}
+          const responses = [];
+          for (let i = 0; i < count; i++) {
+            const element: GetApiDto = {
+              title: data[i].title,
+              created_at: data[i].created_at,
+            };
+            responses.push(element);
+          }
 
-    }))
+          return { results: responses };
+        }),
+      );
   }
-} 
+}
