@@ -16,7 +16,6 @@ export class AppController {
     if (!count) {
       count = 1;
     }
-
     if (count > 10 || count < 0) {
       const ex = new HttpException(
         {
@@ -27,7 +26,6 @@ export class AppController {
       ex.message = 'リクエストエラー';
       throw ex;
     }
-
     return this.appService.findAll(count);
   }
 }
